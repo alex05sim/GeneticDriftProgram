@@ -1,5 +1,6 @@
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
+import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.XYPlot;
@@ -9,6 +10,8 @@ import org.jfree.data.xy.XYSeriesCollection;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -88,6 +91,16 @@ public class GeneticDriftBatchRunner {
         frame.setSize(800, 600);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
+        saveGraphAsImage(chart);
+    }
+    private void saveGraphAsImage(JFreeChart chart) {
+        try {
+            File file = new File("genetic_drift_graph.png");
+            ChartUtilities.saveChartAsPNG(file, chart, 800, 600);
+            System.out.println("Graph saved as genetic_drift_graph.png");
+        } catch (IOException e) {
+            System.err.println("Error saving graph: " + e.getMessage());
+        }
     }
 
     private void printStatistics() {
